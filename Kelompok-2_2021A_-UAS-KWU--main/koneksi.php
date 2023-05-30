@@ -3,9 +3,9 @@ class Koneksi
 {
     private $konek;
     private $host = "localhost";
-    private $user = "root";
-    private $pass = "";
-    private $db = "kerajinanku";
+    private $user = "n1573022_kerajinan";
+    private $pass = "DB@Password";
+    private $db = "n1573022_kerajinan";
 
     private function sambung()
     {
