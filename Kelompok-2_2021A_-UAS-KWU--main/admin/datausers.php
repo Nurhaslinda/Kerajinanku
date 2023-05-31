@@ -257,7 +257,7 @@ $pembeli = @$_REQUEST['pembeli_id'];
                                                 echo "<td><a href='datausers_detail.php?id=$data[pembeli_id]'><button data-toggle='tooltip' title='Detail' class='pd-setting-ed'><i class='fa fa-light fa-eye'></i></button></a>
                                                             <a href='datausers_edit.php?id=$data[pembeli_id]'><button data-toggle='tooltip' title='Edit' class='pt-setting'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a>
                                                             <a href='#' onclick=\"javascript: if(confirm('Apakah pembeli dengan nama " . addslashes($data['pembeli_nama']) . " mau dihapus?')==true)
-                                                            {window.location.href='datapembeli_proses.php?aksi=hapus&tid=$data[pembeli_id]'; } \"><button data-toggle='tooltip' title='Hapus' class='ds-setting'><i class='fa fa-trash-o' aria-hidden='true'></i></button></a>
+                                                            {window.location.href='datausers_proses.php?aksi=hapus&tid=$data[pembeli_id]'; } \"><button data-toggle='tooltip' title='Hapus' class='ds-setting'><i class='fa fa-trash-o' aria-hidden='true'></i></button></a>
                                                         </td>";
                                                 echo "</tr>";
                                                 $no++;
