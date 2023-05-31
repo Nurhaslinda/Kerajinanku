@@ -106,70 +106,84 @@ $idpembeli = @$_SESSION['pembeli_id'];
                         <div class="whole-wrap">
                             <div class="container ml-20">
                                 <div class="col-md-12">
-                                <?php $ambil = $kon->kueri("SELECT * FROM transaksi_detail a JOIN transaksi b ON a.transaksi_id = b.transaksi_id 
+                                    <?php $ambil = $kon->kueri("SELECT * FROM transaksi_detail a JOIN transaksi b ON a.transaksi_id = b.transaksi_id 
                                     JOIN pembeli c ON b.pembeli_id = c.pembeli_id JOIN produk d ON a.produk_id = d.produk_id
                                     JOIN pembayaran e ON a.pembayaran_id = e.pembayaran_id JOIN ongkir f ON a.ongkir_id = f.ongkir_id
                                     WHERE a.transaksi_id = '$_GET[id]'");
                                     while ($detail = $ambil->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                    <section class="section-top-border">
-                                        <div class="container box_1170">
-                                            <div class="row mb-5">
-                                                <div class="col-md-2">
-                                                    <img src="../penjual/<?php echo $detail['produk_gambartumbnail']; ?>" alt="Foto Produk" class="img-fluid" style='width: 170px; height: 150px;'>
-                                                   
+                                        <section class="section-top-border">
+                                            <div class="container box_1170">
+                                                <div class="row mb-5">
+                                                    <div class="col-md-2">
+                                                        <img src="../penjual/<?php echo $detail['produk_gambartumbnail']; ?>" alt="Foto Produk" class="img-fluid" style='width: 170px; height: 150px;'>
+
+                                                    </div>
+                                                    <div class="col-md-4" style="background-color: #F0F0F0;">
+                                                        <h6 class="mt-10 text-center" style="font-weight: 600;"><?php echo $detail['produk_nama'] ?></h6>
+                                                        <h6 class="mt-10 text-center" style="font-weight: 800; color: #E8AEB1;">Rp<?= number_format($detail['produk_harga'], 0, ',', '.') ?></h6>
+                                                        <h6 class="mt-10 text-center" style="color: darkgray;">Jumlah : <?php echo $detail['jumlah'] ?></h6>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4" style="background-color: #F0F0F0;">
-                                                    <h6 class="mt-10 text-center" style="font-weight: 600;"><?php echo $detail['produk_nama'] ?></h6>
-                                                    <h6 class="mt-10 text-center" style="font-weight: 800; color: #E8AEB1;">Rp<?= number_format($detail['produk_harga'], 0, ',', '.') ?></h6>
-                                                    <h6 class="mt-10 text-center" style="color: darkgray;">Jumlah : <?php echo $detail['jumlah'] ?></h6>
-                                                </div>
+                                                <p class="sample-text">
+                                                    <b>Nama :</b> <?php echo $_SESSION['nama']; ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>No. Hp :</b> <?php echo $detail['pembeli_hp'] ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>Email :</b> <?php echo $detail['pembeli_email'] ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>Alamat Pengiriman</b> : <?php echo $detail['pembeli_alamat'] ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>Metode Pengiriman : </b> <?php echo $detail['metode_pengiriman'] ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>Metode Pembayaran :</b> <?php echo $detail['metode_pembayaran'] ?>
+                                                </p>
+                                                <p class="sample-text">
+                                                    <b>Waktu Pesanan : </b> <?php echo $detail['transaksi_tanggal'] ?>
+                                                </p>
+                                                <p class="sample-text" style="color: rgb(117, 26, 202);">
+                                                    <b> Pembayaran :</b> <?php echo $detail['status_pembayaran'] ?>
+                                                </p>
+                                                <p class="sample-text" style="color: rgb(117, 26, 202);">
+                                                    <b>Status Pesanan :</b> <?php echo $detail['status_pesanan'] ?>
+                                                </p>
+
                                             </div>
-                                            <p class="sample-text">
-                                                <b>Nama :</b> <?php echo $_SESSION['nama']; ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>No. Hp :</b> <?php echo $detail['pembeli_hp'] ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>Email :</b> <?php echo $detail['pembeli_email'] ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>Alamat Pengiriman</b> : <?php echo $detail['pembeli_alamat'] ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>Metode Pengiriman : </b> <?php echo $detail['metode_pengiriman'] ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>Metode Pembayaran :</b> <?php echo $detail['metode_pembayaran'] ?>
-                                            </p>
-                                            <p class="sample-text">
-                                                <b>Waktu Pesanan : </b> <?php echo $detail['transaksi_tanggal'] ?>
-                                            </p>
-                                            <p class="sample-text" style="color: rgb(117, 26, 202);">
-                                                <b> Pembayaran :</b> <?php echo $detail['status_pembayaran'] ?>
-                                            </p>
-                                            <p class="sample-text" style="color: rgb(117, 26, 202);">
-                                                <b>Status Pesanan :</b> <?php echo $detail['status_pesanan'] ?>
-                                            </p>
-                                            
+                                        </section>
+
+                                        <hr>
+
+                                        <div class="section-top-border text-right">
+                                            <h6 class="mb-20" style="font-weight: 800;">Ongkir : Rp<?= number_format($detail['ongkir_harga'], 0, ',', '.'); ?></h6>
+                                            <h6 class="mb-20" style="font-weight: 800;">Total Pembayaran : Rp<?= number_format($detail['subtotal'], 0, ',', '.') ?></h6>
+                                            <h6 class="mb-20" style="font-weight: 800;">No.Transaksi : <?php echo $detail['transaksi_id'] ?></h6>
+                                            <h6 class="mb-20" style="font-weight: 800;">No.Transaksi Detail : <?php echo $detail['transaksi_detail_id'] ?></h6>
+
+                                            <?php
+                                            if ($detail['status_pesanan'] == 'Sedang Diproses') {
+                                                echo "<td><a href='#' class='btn_1 mb-50' onclick=\"javascript: window.location.href='proses_status.php?aksi=batal&transaksi_id=$detail[transaksi_id]&toko_id=$detail[toko_id]'; \">Batalkan Pesanan</a>
+                                                        </td>";
+                                            } elseif ($detail['status_pesanan'] == 'Sedang Dikemas') {
+                                                echo "<td><a href='#' class='btn_1 mb-50' onclick=\"javascript: window.location.href='proses_status.php?aksi=batal&transaksi_id=$detail[transaksi_id]&toko_id=$detail[toko_id]'; \">Batalkan Pesanan</a>
+                                                </td>";
+                                            } elseif ($detail['status_pesanan'] == 'Dalam Pengiriman') {
+                                                echo "<td><p class='h5 text-warning'><strong>Pemesanan Tidak Dapat Dibatalkan</p></td>";
+                                            } elseif ($detail['status_pesanan'] == 'Telah Diterima') {
+                                                echo "<td><p class='h5 text-success'><strong>Pemesanan Telah Diterima</p></td>";
+                                            } else {
+                                                echo "<td><p class='h5 text-danger'><strong>Pemesanan Dibatalkan</p></td>";
+                                            }
+                                            ?>
+                                            <hr>
+
                                         </div>
-                                    </section>
-                                    
-                                    <hr>
-
-                                    <div class="section-top-border text-right">
-                                        <h6 class="mb-20" style="font-weight: 800;">Ongkir : Rp<?= number_format($detail['ongkir_harga'], 0, ',', '.'); ?></h6>
-                                        <h6 class="mb-20" style="font-weight: 800;">Total Pembayaran : Rp<?= number_format ($detail['subtotal'], 0, ',', '.') ?></h6>
-                                        <h6 class="mb-20" style="font-weight: 800;">No.Transaksi : <?php echo $detail['transaksi_id'] ?></h6>
-                                        <h6 class="mb-20" style="font-weight: 800;">No.Transaksi Detail : <?php echo $detail['transaksi_detail_id'] ?></h6>
-                                        
-                                        <button class="btn_1 mb-50">Batalkan Pesanan</button>
-                                    <hr>
-
-                                    </div>
                                     <?php } ?>
-                                    
+
                                 </div>
 
                             </div>

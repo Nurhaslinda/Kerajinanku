@@ -257,7 +257,6 @@ $id = @$_REQUEST['admin_id'];
                                             echo "<td>$d[produk_nama]</td>";
                                             echo "<td>$d[review_isi]</td>";
                                             echo "<td><i class='fa fa-star' style='color: #24CAA1;'>$d[review_rating]</td></i>";
-                                            echo "<td><a href='datareview_edit.php?id=$d[review_id]'><button data-toggle='tooltip' title='Edit' class='pt-setting'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
                                             echo "<td><a href='#' onclick=\"javascript: if(confirm('Apakah review dari" . addslashes($d['pembeli_nama']) . " untuk produk " . addslashes($d['produk_nama']) . " mau dihapus?')==true)
                                            {window.location.href='datareview_proses.php?aksi=hapus&tid=$d[review_id]'; } \"><button data-toggle='tooltip' title='Hapus' class='ds-setting'><i class='fa fa-trash-o' aria-hidden='true'></i></button></a></td>";
                                             echo "</td>";

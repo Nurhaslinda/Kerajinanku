@@ -107,8 +107,8 @@ $idpembeli = @$_SESSION['pembeli_id'];
                             <div class="container ml-20">
                                 <div class="col-md-12">
                                     <?php $ambil = $kon->kueri("SELECT * FROM transaksi_detail a JOIN transaksi b ON a.transaksi_id = b.transaksi_id 
-                                    JOIN pembeli c ON b.pembeli_id = c.pembeli_id JOIN produk d ON a.produk_id = d.produk_id
-                                    WHERE b.pembeli_id = '$idpembeli' ORDER BY a.transaksi_id ");
+                                    JOIN pembeli c ON b.pembeli_id = c.pembeli_id JOIN produk d ON a.produk_id = d.produk_id JOIN toko e ON d.toko_id = e.toko_id
+                                    WHERE b.pembeli_id = '$idpembeli' ORDER BY a.transaksi_id");
                                     while ($detail = $ambil->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
                                         <div class="section-top-border">
@@ -134,10 +134,24 @@ $idpembeli = @$_SESSION['pembeli_id'];
                                         <div class="section-top-border text-right">
                                             <h6 style="font-weight: 800;">No. Transaksi : <?= $detail['transaksi_id']; ?></h6>
                                             <h6 style="font-weight: 800;">Total Pembayaran : Rp. <?= number_format($detail['subtotal'], 0, ',', '.'); ?></h6>
-                                            <a href="detailpesanan.php?id=<?=$detail['transaksi_id']?>">
+                                            <a href="detailpesanan.php?id=<?= $detail['transaksi_id'] ?>">
                                                 <h6 class="mb-20" style="color: rgb(117, 26, 202);">Lihat Detail Pesanan ></h6>
                                             </a>
-                                            <button class="btn_1 mb-50">Batalkan Pesanan</button>
+                                            <?php
+                                            if ($detail['status_pesanan'] == 'Sedang Diproses') {
+                                                echo "<td><a href='#' class='btn_1 mb-50' onclick=\"javascript: window.location.href='proses_status.php?aksi=batal&transaksi_id=$detail[transaksi_id]&toko_id=$detail[toko_id]'; \">Batalkan Pesanan</a>
+                                                        </td>";
+                                            } elseif ($detail['status_pesanan'] == 'Sedang Dikemas') {
+                                                echo "<td><a href='#' class='btn_1 mb-50' onclick=\"javascript: window.location.href='proses_status.php?aksi=batal&transaksi_id=$detail[transaksi_id]&toko_id=$detail[toko_id]'; \">Batalkan Pesanan</a>
+                                                </td>";
+                                            } elseif ($detail['status_pesanan'] == 'Dalam Pengiriman') {
+                                                echo "<td><p class='h6 text-warning'><strong>Pemesanan Tidak Dapat Dibatalkan</p></td>";
+                                            } elseif ($detail['status_pesanan'] == 'Telah Diterima') {
+                                                echo "<td><p class='h6 text-success'><strong>Pemesanan Telah Diterima</p></td>";
+                                            } else {
+                                                echo "<td><p class='h6 text-danger'><strong>Pemesanan Dibatalkan</p></td>";
+                                            }
+                                            ?>
                                         </div>
                                     <?php } ?>
 
